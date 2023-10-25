@@ -22,10 +22,12 @@ func _ready():
 func add_piece(piece: CostumePiece.CostumeComponent):
 	if piece in costume_pieces_still_left:
 		costume_pieces_still_left.erase(piece)
+	_check_costume_complete()
 
 func _check_costume_complete() -> void:
 	if costume_pieces_still_left:
 		return
+	_handle_cat_costume_complete()
 
 func _handle_cat_costume_complete() -> void:
 	texture_rect.texture = costumed_cat_texture

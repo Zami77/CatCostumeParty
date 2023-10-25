@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt757vxvg1fgg"]
+
+[ext_resource type="Script" path="res://costume_piece_grid/CostumePieceGrid.gd" id="1_n526l"]
+
+[node name="CostumePieceGrid" type="Node2D"]
+script = ExtResource("1_n526l")

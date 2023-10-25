@@ -26,5 +26,5 @@ func _load_costume_piece_image():
 			pass
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event.is_action("click"):
+	if event.is_action_pressed("click"):
 		emit_signal("piece_selected", self)
