@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdb67hm70n6ly"]
+
+[ext_resource type="Script" path="res://costume_pieces/CostumePiece.gd" id="1_aip63"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bsm5b"]
+size = Vector2(126.5, 128)
+
+[node name="CostumePiece" type="Area2D"]
+script = ExtResource("1_aip63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_bsm5b")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 128.0
+offset_bottom = 128.0

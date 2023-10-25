@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://6r3gogf0dp2r"]
+
+[ext_resource type="Script" path="res://costume_cats/CostumeCat.gd" id="1_28ofy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggx8m"]
+size = Vector2(320, 320)
+
+[node name="CostumeCat" type="Area2D"]
+script = ExtResource("1_28ofy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(160, 160)
+shape = SubResource("RectangleShape2D_ggx8m")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 320.0
+offset_bottom = 320.0
