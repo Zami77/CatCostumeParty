@@ -17,13 +17,15 @@ func _ready():
 	input_event.connect(_on_input_event)
 
 func _load_costume_piece_image():
+	if not texture_rect:
+		return
 	match costume_component:
 		CostumeComponent.CLOAK:
-			pass
+			texture_rect.texture = CostumePieceTextures.cloak
 		CostumeComponent.FANGS:
-			pass
+			texture_rect.texture = CostumePieceTextures.fangs
 		CostumeComponent.BROOM:
-			pass
+			texture_rect.texture = CostumePieceTextures.broom
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("click"):

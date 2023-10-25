@@ -15,6 +15,11 @@ run/main_scene="res://costume_piece_grid/CostumePieceGrid.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [input]
 
 click={
