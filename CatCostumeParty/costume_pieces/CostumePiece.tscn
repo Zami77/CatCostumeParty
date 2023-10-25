@@ -12,6 +12,11 @@ script = ExtResource("1_aip63")
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_bsm5b")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 128.0
+offset_bottom = 128.0
+color = Color(0.913725, 0.913725, 0.913725, 0.505882)
+
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 128.0
 offset_bottom = 128.0
