@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://fudjsw5rof3m"]
+
+[ext_resource type="Script" path="res://managers/MatchManager.gd" id="1_s3c2u"]
+[ext_resource type="PackedScene" uid="uid://bt757vxvg1fgg" path="res://costume_piece_grid/CostumePieceGrid.tscn" id="2_kdm08"]
+[ext_resource type="PackedScene" uid="uid://c72rwq7cqyfb8" path="res://costume_cats/dracula_cat/DraculaCostumeCat.tscn" id="3_2o1l2"]
+
+[node name="MatchManager" type="Node2D"]
+script = ExtResource("1_s3c2u")
+
+[node name="CostumePieceGrid" parent="." instance=ExtResource("2_kdm08")]
+position = Vector2(544, 160)
+
+[node name="CostumeCatArea" type="Node2D" parent="."]
+position = Vector2(32, 64)
+
+[node name="DraculaCostumeCat" parent="CostumeCatArea" instance=ExtResource("3_2o1l2")]
+position = Vector2(0, -32)
