@@ -11,14 +11,15 @@ config_version=5
 [application]
 
 config/name="CatCostumeParty"
-run/main_scene="res://costume_piece_grid/CostumePieceGrid.tscn"
+run/main_scene="res://managers/MatchManager.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=1408
+window/size/viewport_height=792
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
 
 [input]
 
