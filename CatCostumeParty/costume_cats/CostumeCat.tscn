@@ -3,20 +3,23 @@
 [ext_resource type="Script" path="res://costume_cats/CostumeCat.gd" id="1_28ofy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggx8m"]
-size = Vector2(320, 320)
+size = Vector2(384, 384)
 
 [node name="CostumeCat" type="Area2D"]
 script = ExtResource("1_28ofy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(160, 160)
+position = Vector2(192, 192)
 shape = SubResource("RectangleShape2D_ggx8m")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 320.0
-offset_bottom = 320.0
+offset_right = 384.0
+offset_bottom = 384.0
 color = Color(0.509804, 0.898039, 0.815686, 0.498039)
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 320.0
-offset_bottom = 320.0
+offset_right = 384.0
+offset_bottom = 384.0
+
+[node name="CostumePieceArea" type="Node2D" parent="."]
+position = Vector2(0, 384)
