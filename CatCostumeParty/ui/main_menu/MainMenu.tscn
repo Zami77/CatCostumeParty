@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlq8thal63src"]
+
+[ext_resource type="Script" path="res://ui/main_menu/MainMenu.gd" id="1_4uqta"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_4uqta")
+
+[node name="GameNameLabel" type="Label" parent="."]
+offset_left = 480.0
+offset_top = 64.0
+offset_right = 1055.0
+offset_bottom = 155.0
+theme_override_font_sizes/font_size = 64
+text = "Cat Costume Party"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 576.0
+offset_top = 288.0
+offset_right = 931.0
+offset_bottom = 636.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Play1pButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "PLAY 1P"
+
+[node name="Play2pButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "PLAY 2P"
+
+[node name="InstructionsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = " INSTRUCTIONS "
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "PLAY 2P"
