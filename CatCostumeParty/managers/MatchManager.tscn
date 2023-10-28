@@ -19,7 +19,7 @@ position = Vector2(32, 672)
 position = Vector2(992, 64)
 
 [node name="DressedCatAreaP2" type="Node2D" parent="."]
-position = Vector2(992, 672)
+position = Vector2(1248, 672)
 
 [node name="TurnLabel" type="Label" parent="."]
 offset_left = 672.0
