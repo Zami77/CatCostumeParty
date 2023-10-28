@@ -88,9 +88,9 @@ func _on_pieces_selected(selected_pieces) -> void:
 		return
 	_handle_turn_logic(selected_pieces)
 
-func _handle_turn_logic(selected_pieces):
+func _handle_turn_logic(selected_pieces: Array):
 	var costume_cat_area = _get_costume_cat_and_dressed_area(turn_state).costume_cat_area
-		
+	_handle_selected_pieces_animation(selected_pieces.duplicate(true), costume_cat_area)
 	for child in costume_cat_area.get_children():
 		if child is CostumeCat:
 			var pieces_left = child.costume_pieces_still_left.duplicate(true)
@@ -104,6 +104,15 @@ func _handle_turn_logic(selected_pieces):
 	# swap turns
 	turn_state = TurnState.P2 if turn_state == TurnState.P1 else TurnState.P1
 	_update_turn()
+
+func _handle_selected_pieces_animation(selected_pieces: Array, costume_cat_area: Node2D) -> void:
+	for piece in selected_pieces:
+		add_child(piece)
+		piece.global_position = costume_piece_grid.global_position + Dimensions.costume_piece_vec2
+		var piece_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
+		piece_tween.tween_property(piece, "global_position", costume_cat_area.global_position + Dimensions.costume_cat_vec2 / 2, 0.35)
+		await piece_tween.finished
+		remove_child(piece)
 
 func _on_costume_completed(completed_cat: CostumeCat, owning_player: TurnState) -> void:
 	var costume_cat_area_and_dressed_area = _get_costume_cat_and_dressed_area(owning_player)
