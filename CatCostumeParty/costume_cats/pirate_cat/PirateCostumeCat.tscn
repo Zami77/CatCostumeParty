@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqh0uun5pdvql"]
+
+[ext_resource type="Script" path="res://costume_cats/pirate_cat/PirateCostumeCat.gd" id="1_b3pfk"]
+[ext_resource type="Texture2D" uid="uid://cuvgqkoibrmm4" path="res://costume_cats/dracula_cat/initial_dracula_cat_costume.png" id="2_483sh"]
+[ext_resource type="Texture2D" uid="uid://bjf78f635krr2" path="res://costume_cats/pirate_cat/pirate_cat1.png" id="3_tvywf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggx8m"]
+size = Vector2(384, 384)
+
+[node name="PirateCostumeCat" type="Area2D"]
+script = ExtResource("1_b3pfk")
+initial_cat_texture = ExtResource("2_483sh")
+costumed_cat_texture = ExtResource("3_tvywf")
+costume_pieces_required = Array[int]([2, 2])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(192, 192)
+shape = SubResource("RectangleShape2D_ggx8m")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 384.0
+offset_bottom = 384.0
+color = Color(0.509804, 0.898039, 0.815686, 0.498039)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 384.0
+offset_bottom = 384.0
+expand_mode = 1
+
+[node name="CostumePieceArea" type="Node2D" parent="."]
+position = Vector2(0, 384)
