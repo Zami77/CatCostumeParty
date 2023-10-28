@@ -43,7 +43,7 @@ func play_battle_theme() -> void:
 	pass
 
 func _process(delta):
-	if not sfx_queue.empty() and not available_players.empty():
+	if not sfx_queue.is_empty() and not available_players.is_empty():
 		available_players[0].stream = load(sfx_queue.pop_front())
 		available_players[0].play()
 		available_players.pop_front()
