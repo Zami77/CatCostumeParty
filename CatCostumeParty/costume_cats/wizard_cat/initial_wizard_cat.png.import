@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxd4cdi6svyx0"
-path="res://.godot/imported/Broom_Prototype.png-fbc56ffb3fc79a976ec76edf1549dbce.ctex"
+uid="uid://vlym375u0433"
+path="res://.godot/imported/initial_wizard_cat.png-6bd5922dae53241156d85153093b7a74.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://costume_pieces/Broom_Prototype.png"
-dest_files=["res://.godot/imported/Broom_Prototype.png-fbc56ffb3fc79a976ec76edf1549dbce.ctex"]
+source_file="res://costume_cats/wizard_cat/initial_wizard_cat.png"
+dest_files=["res://.godot/imported/initial_wizard_cat.png-6bd5922dae53241156d85153093b7a74.ctex"]
 
 [params]
 

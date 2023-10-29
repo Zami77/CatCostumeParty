@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://eki8g5kpg1x1"]
+
+[ext_resource type="Script" path="res://costume_cats/wizard_cat/WizardCostumeCat.gd" id="1_t54pv"]
+[ext_resource type="Texture2D" uid="uid://vlym375u0433" path="res://costume_cats/wizard_cat/initial_wizard_cat.png" id="2_74ejf"]
+[ext_resource type="Texture2D" uid="uid://b74hwxhrfeu67" path="res://common/RoundedCard.png" id="2_vws6k"]
+[ext_resource type="Texture2D" uid="uid://ck05ww8ct6h3p" path="res://costume_cats/wizard_cat/wizard_cat1.png" id="3_50phe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggx8m"]
+size = Vector2(384, 384)
+
+[node name="WizardCostumeCat" type="Area2D"]
+script = ExtResource("1_t54pv")
+initial_cat_texture = ExtResource("2_74ejf")
+costumed_cat_texture = ExtResource("3_50phe")
+costume_pieces_required = Array[int]([6, 2, 7])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(192, 192)
+shape = SubResource("RectangleShape2D_ggx8m")
+
+[node name="CardBackground" type="TextureRect" parent="."]
+offset_right = 384.0
+offset_bottom = 384.0
+texture = ExtResource("2_vws6k")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 384.0
+offset_bottom = 384.0
+expand_mode = 1
+
+[node name="CostumePieceArea" type="Node2D" parent="."]
+position = Vector2(0, 384)
