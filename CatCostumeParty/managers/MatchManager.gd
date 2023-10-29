@@ -1,7 +1,15 @@
 class_name MatchManager
 extends Node2D
 
+signal completed_cat_animation_finished
+signal completed_selected_pieces_animation_finished
+
 @export var is_ai = false
+@export var timer_wait_between_turns = 1.0
+@export var timer_wait_on_costume_cat_completed = 1.0
+@export var timer_wait_on_start_of_ai_turn = 1.0
+@export var piece_movement_tween_duration = 0.35
+@export var dressed_cat_tween_duration = 0.35
 
 @onready var costume_piece_grid: CostumePieceGrid = get_node("CostumePieceGrid")
 @onready var costume_cat_area_p1: Node2D = get_node("CostumeCatAreaP1")
@@ -39,14 +47,14 @@ func _update_turn() -> void:
 		
 func _execute_ai_turn() -> void:
 	# add delay before doing turn
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(timer_wait_on_start_of_ai_turn).timeout
 	
 	var selectable_options: Dictionary = costume_piece_grid.get_selectable_options()
 	var ai_costume_cat: CostumeCat = costume_cat_area_p2.get_child(0)
 	var best_match_count = 0
 	var best_match_index = [true, 0]
 	for option in selectable_options:
-		if option == costume_piece_grid.disabled_aisle:
+		if not option[0] == costume_piece_grid.disabled_aisle[0] and option[1] == costume_piece_grid.disabled_aisle[1]:
 			continue
 		var current_match_count = 0
 		var dupe_costume_pieces_left = ai_costume_cat.costume_pieces_still_left.duplicate(true)
@@ -58,6 +66,7 @@ func _execute_ai_turn() -> void:
 			best_match_count = current_match_count
 			best_match_index = option
 	
+	# TODO: Somewhere here the logic is wrong, but it gets the correct result
 	costume_piece_grid.select_row_or_col(\
 		not best_match_index[0], \
 		best_match_index[1], \
@@ -86,11 +95,16 @@ func _get_costume_cat_and_dressed_area(player: TurnState) -> Dictionary:
 func _on_pieces_selected(selected_pieces) -> void:
 	if turn_state == TurnState.GAME_END:
 		return
+	if turn_state == TurnState.P1:
+		costume_piece_grid.select_disabled = true
+	
 	_handle_turn_logic(selected_pieces)
 
 func _handle_turn_logic(selected_pieces: Array):
 	var costume_cat_area = _get_costume_cat_and_dressed_area(turn_state).costume_cat_area
 	_handle_selected_pieces_animation(selected_pieces.duplicate(true), costume_cat_area)
+	await completed_selected_pieces_animation_finished
+	
 	for child in costume_cat_area.get_children():
 		if child is CostumeCat:
 			var pieces_left = child.costume_pieces_still_left.duplicate(true)
@@ -101,34 +115,55 @@ func _handle_turn_logic(selected_pieces: Array):
 					pieces_left.erase(piece.costume_component)
 			for add_piece in pieces_to_add:
 				child.add_piece(add_piece)
-	# swap turns
+			
+			if not child.costume_pieces_still_left:
+				await completed_cat_animation_finished
+	while not costume_piece_grid.grid_pieces_replenished:
+		await get_tree().create_timer(0.1).timeout
+	
+	# swap turns and a small wait buffer between turns
 	turn_state = TurnState.P2 if turn_state == TurnState.P1 else TurnState.P1
+	await get_tree().create_timer(timer_wait_between_turns).timeout
 	_update_turn()
 
 func _handle_selected_pieces_animation(selected_pieces: Array, costume_cat_area: Node2D) -> void:
 	for piece in selected_pieces:
-		add_child(piece)
-		piece.global_position = costume_piece_grid.global_position + Dimensions.costume_piece_vec2
+		var old_global_position = piece.global_position
+		piece.global_position = old_global_position
 		var piece_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
-		piece_tween.tween_property(piece, "global_position", costume_cat_area.global_position + Dimensions.costume_cat_vec2 / 2, 0.35)
+		piece_tween.tween_property(piece, "global_position", costume_cat_area.global_position + Dimensions.costume_cat_vec2 / 2, piece_movement_tween_duration)
 		await piece_tween.finished
-		remove_child(piece)
+		costume_piece_grid.remove_child(piece)
+	emit_signal("completed_selected_pieces_animation_finished")
+	costume_piece_grid._on_completed_selected_pieces_animation_finished()
 
 func _on_costume_completed(completed_cat: CostumeCat, owning_player: TurnState) -> void:
 	var costume_cat_area_and_dressed_area = _get_costume_cat_and_dressed_area(owning_player)
 	var costume_cat_area: Node2D = costume_cat_area_and_dressed_area.costume_cat_area
 	var dressed_cat_area: Node2D = costume_cat_area_and_dressed_area.dressed_cat_area
-	# temp timer to see cat in costume, TODO: tween animation
-	await get_tree().create_timer(1.0).timeout
+
+	await get_tree().create_timer(timer_wait_on_costume_cat_completed).timeout
+	var old_costume_cat_global_pos = completed_cat.global_position
 	costume_cat_area.remove_child(completed_cat)
-	_add_dressed_cat(completed_cat, dressed_cat_area, owning_player)
+	_add_dressed_cat(completed_cat, old_costume_cat_global_pos, dressed_cat_area, owning_player)
+	await completed_cat_animation_finished
 	_setup_costume_cat_areas()
 
-func _add_dressed_cat(completed_cat: CostumeCat, dressed_cat_area: Node2D, owning_player: TurnState) -> void:
+func _add_dressed_cat(completed_cat: CostumeCat, old_global_position: Vector2, dressed_cat_area: Node2D, owning_player: TurnState) -> void:
 	var width_pos = dressed_cat_area.get_child_count() * Dimensions.costume_piece_width
 	dressed_cat_area.add_child(completed_cat)
-	completed_cat.scale = Vector2(0.33, 0.33)
-	completed_cat.position = Vector2(\
+	completed_cat.global_position = old_global_position
+	var new_scale = Vector2(0.33, 0.33)
+	var new_position = Vector2(\
 		width_pos * (1 if owning_player == TurnState.P1 else - 1),\
 		0\
 	)
+	
+	var dressed_cat_position_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
+	var dressed_cat_scale_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
+	dressed_cat_position_tween.tween_property(completed_cat, "position", new_position, dressed_cat_tween_duration)
+	dressed_cat_scale_tween.tween_property(completed_cat, "scale", new_scale, dressed_cat_tween_duration)
+	await dressed_cat_position_tween.finished
+	await dressed_cat_scale_tween.finished
+	
+	emit_signal("completed_cat_animation_finished")
