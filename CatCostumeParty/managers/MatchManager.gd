@@ -133,6 +133,7 @@ func _on_pieces_selected(selected_pieces) -> void:
 	_handle_turn_logic(selected_pieces)
 
 func _handle_turn_logic(selected_pieces: Array):
+	costume_piece_grid.select_disabled = true
 	var costume_cat_area = _get_costume_cat_and_dressed_area(turn_state).costume_cat_area
 	_handle_selected_pieces_animation(selected_pieces.duplicate(true), costume_cat_area)
 	await completed_selected_pieces_animation_finished
