@@ -19,8 +19,8 @@ signal load_scene(scene_path)
 @onready var dressed_cat_area_p1: Node2D = get_node("DressedCatAreaP1")
 @onready var dressed_cat_area_p2: Node2D = get_node("DressedCatAreaP2")
 @onready var game_end_panel: GameEndPanel = get_node("CanvasLayer/GameEndPanel")
-
 @onready var turn_label: Label = get_node("TurnLabel")
+
 enum TurnState { P1, P2, GAME_END, NONE }
 var turn_state = TurnState.P1
 var winning_player = TurnState.NONE
@@ -51,7 +51,7 @@ func _update_turn() -> void:
 	if turn_state == TurnState.GAME_END:
 		return
 	
-	turn_label.text = TurnState.keys()[turn_state]
+	turn_label.text = TurnState.keys()[turn_state] + " TURN"
 	
 	if is_ai and turn_state == TurnState.P2:
 		costume_piece_grid.select_disabled = true
