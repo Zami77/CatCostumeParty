@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdb67hm70n6ly"]
+[gd_scene load_steps=4 format=3 uid="uid://cdb67hm70n6ly"]
 
 [ext_resource type="Script" path="res://costume_pieces/CostumePiece.gd" id="1_aip63"]
+[ext_resource type="Texture2D" uid="uid://b74hwxhrfeu67" path="res://common/RoundedCard.png" id="2_6h3dq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bsm5b"]
 size = Vector2(126.5, 128)
@@ -12,11 +13,13 @@ script = ExtResource("1_aip63")
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_bsm5b")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="CardBackground" type="TextureRect" parent="."]
 offset_right = 128.0
 offset_bottom = 128.0
-color = Color(0.913725, 0.913725, 0.913725, 0.505882)
+texture = ExtResource("2_6h3dq")
+expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 128.0
 offset_bottom = 128.0
+expand_mode = 1

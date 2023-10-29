@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqetwgxg8uwc8"]
+[gd_scene load_steps=6 format=3 uid="uid://dqetwgxg8uwc8"]
 
 [ext_resource type="Script" path="res://costume_cats/dracula_cat/DraculaCostumeCat.gd" id="1_lnkj4"]
 [ext_resource type="Texture2D" uid="uid://cuvgqkoibrmm4" path="res://costume_cats/dracula_cat/initial_dracula_cat_costume.png" id="2_oa4yv"]
 [ext_resource type="Texture2D" uid="uid://b4fuytnshvf4r" path="res://costume_cats/dracula_cat/dracula_cat_costume.png" id="3_ktpjk"]
+[ext_resource type="Texture2D" uid="uid://b74hwxhrfeu67" path="res://common/RoundedCard.png" id="4_2r8lw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggx8m"]
 size = Vector2(384, 384)
@@ -17,10 +18,11 @@ costume_pieces_required = Array[int]([0, 1])
 position = Vector2(192, 192)
 shape = SubResource("RectangleShape2D_ggx8m")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="CardBackground" type="TextureRect" parent="."]
 offset_right = 384.0
 offset_bottom = 384.0
-color = Color(0.509804, 0.898039, 0.815686, 0.498039)
+texture = ExtResource("4_2r8lw")
+expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 384.0
