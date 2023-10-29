@@ -3,8 +3,7 @@
 [ext_resource type="Script" path="res://ui/main_menu/MainMenu.gd" id="1_4uqta"]
 [ext_resource type="Texture2D" uid="uid://bu0l7scyeg510" path="res://ui/main_menu/title_art_with_cats.png" id="2_thomr"]
 [ext_resource type="Theme" uid="uid://c6kvf2ibqye14" path="res://ui/themes/DefaultTheme.tres" id="3_yewn7"]
-
-[sub_resource type="Theme" id="Theme_y02fb"]
+[ext_resource type="Script" path="res://ui/button_sfx/ButtonSfx.gd" id="4_due8q"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_4uqta")
@@ -25,18 +24,29 @@ alignment = 1
 
 [node name="Play1pButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_y02fb")
+theme = ExtResource("3_yewn7")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "PLAY 1P"
+script = ExtResource("4_due8q")
 
 [node name="Play2pButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_yewn7")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "PLAY 2P"
+script = ExtResource("4_due8q")
 
 [node name="InstructionsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_yewn7")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = " INSTRUCTIONS "
+script = ExtResource("4_due8q")
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_yewn7")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "CREDITS
 "
+script = ExtResource("4_due8q")
