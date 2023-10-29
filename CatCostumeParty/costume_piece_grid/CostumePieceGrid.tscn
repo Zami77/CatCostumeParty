@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://bt757vxvg1fgg"]
 
 [ext_resource type="Script" path="res://costume_piece_grid/CostumePieceGrid.gd" id="1_n526l"]
-[ext_resource type="Texture2D" uid="uid://c2a8ee06boskr" path="res://costume_piece_grid/row_selector_prototype.png" id="2_smpky"]
-[ext_resource type="Texture2D" uid="uid://foesl77b4yrw" path="res://costume_piece_grid/row_selector_disabled_prototype.png" id="3_3fd86"]
-[ext_resource type="Texture2D" uid="uid://din4y41jds2gx" path="res://costume_piece_grid/col_selector_prototype.png" id="3_30hck"]
-[ext_resource type="Texture2D" uid="uid://bklq0unh7uuhe" path="res://costume_piece_grid/col_selector_disabled_prototype.png" id="5_vx5ov"]
+[ext_resource type="Texture2D" uid="uid://bdivs0dtvk7fv" path="res://costume_piece_grid/cat_paw_selector/cat_paw_go_row_selector.png" id="2_hnhsd"]
+[ext_resource type="Texture2D" uid="uid://bytikx41iyjoq" path="res://costume_piece_grid/cat_paw_selector/cat_paw_stop_row_selector.png" id="3_o6rgd"]
+[ext_resource type="Texture2D" uid="uid://bjvl0wremwdvt" path="res://costume_piece_grid/cat_paw_selector/cat_paw_go_col_selector.png" id="4_7efea"]
+[ext_resource type="Texture2D" uid="uid://bd62whcd67r31" path="res://costume_piece_grid/cat_paw_selector/cat_paw_stop_col_selector.png" id="5_r3qv4"]
 
 [node name="CostumePieceGrid" type="Node2D"]
 script = ExtResource("1_n526l")
@@ -12,39 +12,51 @@ script = ExtResource("1_n526l")
 [node name="RowSelector0" type="TextureButton" parent="."]
 offset_left = -128.0
 offset_bottom = 128.0
-texture_normal = ExtResource("2_smpky")
-texture_disabled = ExtResource("3_3fd86")
+texture_normal = ExtResource("2_hnhsd")
+texture_disabled = ExtResource("3_o6rgd")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="RowSelector1" type="TextureButton" parent="."]
 offset_left = -128.0
 offset_top = 128.0
 offset_bottom = 256.0
-texture_normal = ExtResource("2_smpky")
-texture_disabled = ExtResource("3_3fd86")
+texture_normal = ExtResource("2_hnhsd")
+texture_disabled = ExtResource("3_o6rgd")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="RowSelector2" type="TextureButton" parent="."]
 offset_left = -128.0
 offset_top = 256.0
 offset_bottom = 384.0
-texture_normal = ExtResource("2_smpky")
-texture_disabled = ExtResource("3_3fd86")
+texture_normal = ExtResource("2_hnhsd")
+texture_disabled = ExtResource("3_o6rgd")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="ColSelector0" type="TextureButton" parent="."]
 offset_top = -128.0
 offset_right = 128.0
-texture_normal = ExtResource("3_30hck")
-texture_disabled = ExtResource("5_vx5ov")
+texture_normal = ExtResource("4_7efea")
+texture_disabled = ExtResource("5_r3qv4")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="ColSelector1" type="TextureButton" parent="."]
 offset_left = 128.0
 offset_top = -128.0
 offset_right = 256.0
-texture_normal = ExtResource("3_30hck")
-texture_disabled = ExtResource("5_vx5ov")
+texture_normal = ExtResource("4_7efea")
+texture_disabled = ExtResource("5_r3qv4")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="ColSelector2" type="TextureButton" parent="."]
 offset_left = 256.0
 offset_top = -128.0
 offset_right = 384.0
-texture_normal = ExtResource("3_30hck")
-texture_disabled = ExtResource("5_vx5ov")
+texture_normal = ExtResource("4_7efea")
+texture_disabled = ExtResource("5_r3qv4")
+ignore_texture_size = true
+stretch_mode = 0
