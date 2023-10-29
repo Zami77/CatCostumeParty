@@ -52,11 +52,12 @@ func _update_turn() -> void:
 		return
 	
 	turn_label.text = TurnState.keys()[turn_state]
-	costume_piece_grid.select_disabled = false
 	
 	if is_ai and turn_state == TurnState.P2:
 		costume_piece_grid.select_disabled = true
 		_execute_ai_turn()
+	else:
+		costume_piece_grid.select_disabled = false
 
 func _check_for_game_win() -> void:
 	p1_dressed_cats = dressed_cat_area_p1.get_child_count()
@@ -108,7 +109,6 @@ func _execute_ai_turn() -> void:
 		)\
 	)
 	
-	costume_piece_grid.select_disabled = false
 
 func _get_costume_cat_and_dressed_area(player: TurnState) -> Dictionary:
 	var costume_cat_area
@@ -127,8 +127,8 @@ func _get_costume_cat_and_dressed_area(player: TurnState) -> Dictionary:
 func _on_pieces_selected(selected_pieces) -> void:
 	if turn_state == TurnState.GAME_END:
 		return
-	if turn_state == TurnState.P1:
-		costume_piece_grid.select_disabled = true
+
+	costume_piece_grid.select_disabled = true
 	
 	_handle_turn_logic(selected_pieces)
 
