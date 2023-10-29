@@ -22,6 +22,7 @@ expand_mode = 1
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 384.0
 offset_bottom = 384.0
+expand_mode = 1
 
 [node name="CostumePieceArea" type="Node2D" parent="."]
 position = Vector2(0, 384)

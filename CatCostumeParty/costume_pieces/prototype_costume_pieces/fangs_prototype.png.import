@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0i2m1q2ottph"
-path="res://.godot/imported/cloak_prototype.png-2884ce74181e400839fe161f8bf96076.ctex"
+uid="uid://nng321v1t87o"
+path="res://.godot/imported/fangs_prototype.png-240d9ae557c5ec058c4cf20e72629649.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://costume_pieces/cloak_prototype.png"
-dest_files=["res://.godot/imported/cloak_prototype.png-2884ce74181e400839fe161f8bf96076.ctex"]
+source_file="res://costume_pieces/prototype_costume_pieces/fangs_prototype.png"
+dest_files=["res://.godot/imported/fangs_prototype.png-240d9ae557c5ec058c4cf20e72629649.ctex"]
 
 [params]
 

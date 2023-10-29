@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nng321v1t87o"
-path="res://.godot/imported/fangs_prototype.png-71a4aacfea31939581541327c1fd2a8c.ctex"
+uid="uid://4xujjqaq7aqb"
+path="res://.godot/imported/wizard_broom1.png-84d37b695bf69a7d96f33b13591768b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://costume_pieces/fangs_prototype.png"
-dest_files=["res://.godot/imported/fangs_prototype.png-71a4aacfea31939581541327c1fd2a8c.ctex"]
+source_file="res://costume_pieces/costume_piece_art/wizard_broom1.png"
+dest_files=["res://.godot/imported/wizard_broom1.png-84d37b695bf69a7d96f33b13591768b0.ctex"]
 
 [params]
 

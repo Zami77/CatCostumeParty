@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dqetwgxg8uwc8"]
 
 [ext_resource type="Script" path="res://costume_cats/dracula_cat/DraculaCostumeCat.gd" id="1_lnkj4"]
-[ext_resource type="Texture2D" uid="uid://cuvgqkoibrmm4" path="res://costume_cats/dracula_cat/initial_dracula_cat_costume.png" id="2_oa4yv"]
-[ext_resource type="Texture2D" uid="uid://b4fuytnshvf4r" path="res://costume_cats/dracula_cat/dracula_cat_costume.png" id="3_ktpjk"]
+[ext_resource type="Texture2D" uid="uid://cwuiko2xbjgpr" path="res://costume_cats/dracula_cat/initial_dracula_cat.png" id="2_utoqc"]
+[ext_resource type="Texture2D" uid="uid://ij2wkdyganwh" path="res://costume_cats/dracula_cat/dracula_cat1.png" id="3_fh1ir"]
 [ext_resource type="Texture2D" uid="uid://b74hwxhrfeu67" path="res://common/RoundedCard.png" id="4_2r8lw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggx8m"]
@@ -10,9 +10,9 @@ size = Vector2(384, 384)
 
 [node name="DraculaCostumeCat" type="Area2D"]
 script = ExtResource("1_lnkj4")
-initial_cat_texture = ExtResource("2_oa4yv")
-costumed_cat_texture = ExtResource("3_ktpjk")
-costume_pieces_required = Array[int]([0, 1])
+initial_cat_texture = ExtResource("2_utoqc")
+costumed_cat_texture = ExtResource("3_fh1ir")
+costume_pieces_required = Array[int]([0, 1, 8])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(192, 192)
