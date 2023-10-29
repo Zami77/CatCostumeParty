@@ -29,9 +29,12 @@ var p1_dressed_cats = 0
 var p2_dressed_cats = 0
 
 func _ready():
+	costume_piece_grid.select_disabled = true
 	costume_piece_grid.pieces_selected.connect(_on_pieces_selected)
 	game_end_panel.game_end_panel_option_selected.connect(_on_game_end_panel_option_selected)
 	_setup_costume_cat_areas()
+	
+	await costume_piece_grid.grid_setup
 	_update_turn()
 
 func _setup_costume_cat_areas() -> void:

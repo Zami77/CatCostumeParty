@@ -5,6 +5,7 @@ signal piece_component_selected(selected_piece_component: CostumePiece.CostumeCo
 signal pieces_selected(selected_pieces: Array[CostumePiece])
 signal completed_selected_pieces_animation_finished
 signal random_piece_added
+signal grid_setup
 
 @export var num_rows: int = 3
 @export var num_cols: int = 3
@@ -35,6 +36,7 @@ func _setup_grid():
 			grid[row].append(0)
 			_add_random_piece(row, col)
 			await random_piece_added
+	emit_signal("grid_setup")
 			
 func get_selectable_options() -> Dictionary:
 	var selectable_options = {}
