@@ -3,26 +3,34 @@ extends Node2D
 
 signal completed_cat_animation_finished
 signal completed_selected_pieces_animation_finished
+signal load_scene(scene_path)
 
-@export var is_ai = false
+@export var dressed_cats_to_win = 5
 @export var timer_wait_between_turns = 1.0
 @export var timer_wait_on_costume_cat_completed = 1.0
 @export var timer_wait_on_start_of_ai_turn = 1.0
 @export var piece_movement_tween_duration = 0.35
 @export var dressed_cat_tween_duration = 0.35
+@export var is_ai = false
 
 @onready var costume_piece_grid: CostumePieceGrid = get_node("CostumePieceGrid")
 @onready var costume_cat_area_p1: Node2D = get_node("CostumeCatAreaP1")
 @onready var costume_cat_area_p2: Node2D = get_node("CostumeCatAreaP2")
 @onready var dressed_cat_area_p1: Node2D = get_node("DressedCatAreaP1")
 @onready var dressed_cat_area_p2: Node2D = get_node("DressedCatAreaP2")
+@onready var game_end_panel: GameEndPanel = get_node("CanvasLayer/GameEndPanel")
 
 @onready var turn_label: Label = get_node("TurnLabel")
-enum TurnState { P1, P2, GAME_END }
+enum TurnState { P1, P2, GAME_END, NONE }
 var turn_state = TurnState.P1
+var winning_player = TurnState.NONE
+
+var p1_dressed_cats = 0
+var p2_dressed_cats = 0
 
 func _ready():
 	costume_piece_grid.pieces_selected.connect(_on_pieces_selected)
+	game_end_panel.game_end_panel_option_selected.connect(_on_game_end_panel_option_selected)
 	_setup_costume_cat_areas()
 	_update_turn()
 
@@ -38,13 +46,37 @@ func _setup_costume_cat_areas() -> void:
 
 
 func _update_turn() -> void:
+	_check_for_game_win()
+	
+	if turn_state == TurnState.GAME_END:
+		return
+	
 	turn_label.text = TurnState.keys()[turn_state]
 	costume_piece_grid.select_disabled = false
 	
 	if is_ai and turn_state == TurnState.P2:
 		costume_piece_grid.select_disabled = true
 		_execute_ai_turn()
-		
+
+func _check_for_game_win() -> void:
+	p1_dressed_cats = dressed_cat_area_p1.get_child_count()
+	p2_dressed_cats = dressed_cat_area_p2.get_child_count()
+	
+	if p1_dressed_cats >= dressed_cats_to_win:
+		turn_state = TurnState.GAME_END
+		winning_player = TurnState.P1
+	if p2_dressed_cats >= dressed_cats_to_win:
+		turn_state = TurnState.GAME_END
+		winning_player = TurnState.P2
+	
+	if turn_state == TurnState.GAME_END:
+		_execute_game_win()
+
+func _execute_game_win() -> void:
+	game_end_panel.set_winning_player(winning_player)
+	game_end_panel.visible = true
+	costume_piece_grid.select_disabled = true
+
 func _execute_ai_turn() -> void:
 	# add delay before doing turn
 	await get_tree().create_timer(timer_wait_on_start_of_ai_turn).timeout
@@ -167,3 +199,10 @@ func _add_dressed_cat(completed_cat: CostumeCat, old_global_position: Vector2, d
 	await dressed_cat_scale_tween.finished
 	
 	emit_signal("completed_cat_animation_finished")
+
+func _on_game_end_panel_option_selected(option: GameEndPanel.Option) -> void:
+	match option:
+		GameEndPanel.Option.PLAY:
+			emit_signal("load_scene", ScenePaths.match_manager)
+		GameEndPanel.Option.MAIN_MENU:
+			emit_signal("load_scene", ScenePaths.main_menu)

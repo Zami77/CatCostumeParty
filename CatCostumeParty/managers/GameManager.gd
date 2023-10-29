@@ -30,6 +30,7 @@ func _load_scene(scene_path: String):
 		current_scene.option_selected.connect(_on_main_menu_button_pressed)
 	if current_scene is MatchManager:
 		current_scene.is_ai = is_ai
+		current_scene.load_scene.connect(_on_load_scene)
 	
 	await transition_screen.faded_to_scene
 
@@ -46,3 +47,6 @@ func _on_main_menu_button_pressed(option: MainMenu.Option) -> void:
 		MainMenu.Option.CREDITS:
 			pass
 	pass
+
+func _on_load_scene(scene_path) -> void:
+	_load_scene(scene_path)
