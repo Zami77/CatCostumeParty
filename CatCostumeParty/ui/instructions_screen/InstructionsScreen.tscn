@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl30sn1asndmr"]
+[gd_scene load_steps=5 format=3 uid="uid://cl30sn1asndmr"]
 
 [ext_resource type="Script" path="res://ui/instructions_screen/InstructionsScreen.gd" id="1_iqd66"]
 [ext_resource type="Texture2D" uid="uid://cjbng43026ljx" path="res://managers/match_background.png" id="1_slhiv"]
 [ext_resource type="Theme" uid="uid://c6kvf2ibqye14" path="res://ui/themes/DefaultTheme.tres" id="2_thrf1"]
+[ext_resource type="Script" path="res://ui/button_sfx/ButtonSfx.gd" id="4_ghs32"]
 
 [node name="InstructionsScreen" type="Node2D"]
 script = ExtResource("1_iqd66")
@@ -20,6 +21,7 @@ offset_bottom = 704.0
 color = Color(0.054902, 0.054902, 0.054902, 0.8)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="LabelBackground"]
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 640.0
 theme = ExtResource("2_thrf1")
@@ -28,7 +30,7 @@ text = "It's Halloween and you need to help your cat friends get dressed into co
 
 Each player starts with a cat that has the required costume pieces below it. Select a row or column to get the pieces.
 
-Keep in mind, the row or column that's been selected can not be selected the following turn!
+Keep in mind, the row or column that's been selected can not be selected the next player's turn!
 
 "
 fit_content = true
@@ -40,3 +42,4 @@ offset_right = 895.0
 offset_bottom = 789.0
 theme = ExtResource("2_thrf1")
 text = "BACK TO MAIN MENU"
+script = ExtResource("4_ghs32")

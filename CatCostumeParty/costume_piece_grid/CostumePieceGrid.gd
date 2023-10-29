@@ -34,6 +34,7 @@ func _setup_grid():
 		for col in num_cols:
 			grid[row].append(0)
 			_add_random_piece(row, col)
+			await random_piece_added
 			
 func get_selectable_options() -> Dictionary:
 	var selectable_options = {}
@@ -130,6 +131,7 @@ func _add_random_piece(row, col) -> void:
 	rand_piece.piece_selected.connect(_on_piece_selected)
 	grid[row][col] = rand_piece
 	
+	AudioManager.play_piece_added_to_grid()
 	var rand_piece_scale_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
 	rand_piece_scale_tween.tween_property(rand_piece, "scale", Vector2.ONE, 0.3)
 	await rand_piece_scale_tween.finished

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgh1ysbipxb66"]
+[gd_scene load_steps=5 format=3 uid="uid://bgh1ysbipxb66"]
 
 [ext_resource type="Script" path="res://ui/instructions_screen/InstructionsScreen.gd" id="1_um0qs"]
 [ext_resource type="Texture2D" uid="uid://cjbng43026ljx" path="res://managers/match_background.png" id="2_ixjnq"]
 [ext_resource type="Theme" uid="uid://c6kvf2ibqye14" path="res://ui/themes/DefaultTheme.tres" id="3_otlua"]
+[ext_resource type="Script" path="res://ui/button_sfx/ButtonSfx.gd" id="4_bb72p"]
 
 [node name="CreditsScreen" type="Node2D"]
 script = ExtResource("1_um0qs")
@@ -41,3 +42,4 @@ offset_right = 895.0
 offset_bottom = 789.0
 theme = ExtResource("3_otlua")
 text = "BACK TO MAIN MENU"
+script = ExtResource("4_bb72p")

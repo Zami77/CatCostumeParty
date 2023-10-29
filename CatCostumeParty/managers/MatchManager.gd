@@ -74,6 +74,7 @@ func _check_for_game_win() -> void:
 		_execute_game_win()
 
 func _execute_game_win() -> void:
+	AudioManager.play_game_end()
 	game_end_panel.set_winning_player(winning_player)
 	game_end_panel.visible = true
 	costume_piece_grid.select_disabled = true
@@ -165,6 +166,7 @@ func _handle_selected_pieces_animation(selected_pieces: Array, costume_cat_area:
 		piece.global_position = old_global_position
 		var piece_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
 		piece_tween.tween_property(piece, "global_position", costume_cat_area.global_position + Dimensions.costume_cat_vec2 / 2, piece_movement_tween_duration)
+		AudioManager.play_collect_costume_piece()
 		await piece_tween.finished
 		costume_piece_grid.remove_child(piece)
 	emit_signal("completed_selected_pieces_animation_finished")
@@ -175,6 +177,7 @@ func _on_costume_completed(completed_cat: CostumeCat, owning_player: TurnState) 
 	var costume_cat_area: Node2D = costume_cat_area_and_dressed_area.costume_cat_area
 	var dressed_cat_area: Node2D = costume_cat_area_and_dressed_area.dressed_cat_area
 
+	AudioManager.play_costume_cat_completed()
 	await get_tree().create_timer(timer_wait_on_costume_cat_completed).timeout
 	var old_costume_cat_global_pos = completed_cat.global_position
 	costume_cat_area.remove_child(completed_cat)
@@ -196,6 +199,7 @@ func _add_dressed_cat(completed_cat: CostumeCat, old_global_position: Vector2, d
 	var dressed_cat_scale_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
 	dressed_cat_position_tween.tween_property(completed_cat, "position", new_position, dressed_cat_tween_duration)
 	dressed_cat_scale_tween.tween_property(completed_cat, "scale", new_scale, dressed_cat_tween_duration)
+	AudioManager.play_dressed_cat_move()
 	await dressed_cat_position_tween.finished
 	await dressed_cat_scale_tween.finished
 	
