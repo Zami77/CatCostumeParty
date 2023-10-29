@@ -1,10 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://fudjsw5rof3m"]
+[gd_scene load_steps=7 format=3 uid="uid://fudjsw5rof3m"]
 
 [ext_resource type="Script" path="res://managers/MatchManager.gd" id="1_s3c2u"]
-[ext_resource type="Texture2D" uid="uid://cjbng43026ljx" path="res://managers/match_background.png" id="2_6kwbx"]
 [ext_resource type="PackedScene" uid="uid://bt757vxvg1fgg" path="res://costume_piece_grid/CostumePieceGrid.tscn" id="2_kdm08"]
 [ext_resource type="PackedScene" uid="uid://dccan5dvvoco" path="res://ui/game_end_panel/GameEndPanel.tscn" id="3_py1wa"]
 [ext_resource type="Theme" uid="uid://c6kvf2ibqye14" path="res://ui/themes/DefaultTheme.tres" id="4_0dlc5"]
+
+[sub_resource type="Gradient" id="Gradient_kg6v1"]
+offsets = PackedFloat32Array(0.623632, 1)
+colors = PackedColorArray(0.853173, 0.699966, 0.574416, 1, 0.948933, 0.564375, 0.310522, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0cymq"]
+gradient = SubResource("Gradient_kg6v1")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0.807692, 0.354701)
 
 [node name="MatchManager" type="Node2D"]
 script = ExtResource("1_s3c2u")
@@ -15,7 +23,7 @@ z_index = -1
 offset_top = -8.0
 offset_right = 1408.0
 offset_bottom = 792.0
-texture = ExtResource("2_6kwbx")
+texture = SubResource("GradientTexture2D_0cymq")
 
 [node name="CostumePieceGrid" parent="." instance=ExtResource("2_kdm08")]
 position = Vector2(544, 160)
@@ -33,19 +41,22 @@ position = Vector2(992, 64)
 position = Vector2(1248, 672)
 
 [node name="TurnLabel" type="Label" parent="."]
-offset_left = 488.0
-offset_top = 520.0
-offset_right = 640.0
-offset_bottom = 698.0
+offset_left = 560.0
+offset_top = 528.0
+offset_right = 712.0
+offset_bottom = 706.0
 theme = ExtResource("4_0dlc5")
-theme_override_font_sizes/font_size = 128
-text = "P1"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 96
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="P1Label" type="Label" parent="."]
 offset_left = 200.0
 offset_right = 255.0
 offset_bottom = 64.0
 theme = ExtResource("4_0dlc5")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "P1"
 
 [node name="P2Label" type="Label" parent="."]
@@ -53,6 +64,7 @@ offset_left = 1160.0
 offset_right = 1215.0
 offset_bottom = 64.0
 theme = ExtResource("4_0dlc5")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "P2"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqh0uun5pdvql"]
+[gd_scene load_steps=8 format=3 uid="uid://cqh0uun5pdvql"]
 
 [ext_resource type="Script" path="res://costume_cats/pirate_cat/PirateCostumeCat.gd" id="1_b3pfk"]
 [ext_resource type="Texture2D" uid="uid://3x1vaifvqt6c" path="res://costume_cats/pirate_cat/initial_pirate_cat.png" id="2_6iups"]
 [ext_resource type="Texture2D" uid="uid://bjf78f635krr2" path="res://costume_cats/pirate_cat/pirate_cat1.png" id="3_tvywf"]
 [ext_resource type="Texture2D" uid="uid://b74hwxhrfeu67" path="res://common/RoundedCard.png" id="4_j4tap"]
+[ext_resource type="Theme" uid="uid://c6kvf2ibqye14" path="res://ui/themes/DefaultTheme.tres" id="5_2qjm3"]
+[ext_resource type="FontFile" uid="uid://ce31x33as1hgh" path="res://ui/fonts/Halloween Spooky.ttf" id="6_r507s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggx8m"]
 size = Vector2(384, 384)
@@ -20,9 +22,21 @@ shape = SubResource("RectangleShape2D_ggx8m")
 
 [node name="CardBackground" type="TextureRect" parent="."]
 offset_right = 384.0
-offset_bottom = 384.0
+offset_bottom = 464.0
 texture = ExtResource("4_j4tap")
 expand_mode = 1
+
+[node name="CatNameLabel" type="Label" parent="."]
+offset_top = 400.0
+offset_right = 384.0
+offset_bottom = 467.0
+theme = ExtResource("5_2qjm3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_r507s")
+theme_override_font_sizes/font_size = 64
+text = "Sample Name"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 384.0
@@ -30,4 +44,4 @@ offset_bottom = 384.0
 expand_mode = 1
 
 [node name="CostumePieceArea" type="Node2D" parent="."]
-position = Vector2(0, 384)
+position = Vector2(0, 464)

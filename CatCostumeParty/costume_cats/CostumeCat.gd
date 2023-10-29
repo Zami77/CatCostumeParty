@@ -6,9 +6,11 @@ signal costume_completed
 @export var initial_cat_texture: Texture
 @export var costumed_cat_texture: Texture
 @export var costume_pieces_required: Array[CostumePiece.CostumeComponent]
+@export var cat_name: String = "Sample Cat Name"
 
 @onready var texture_rect: TextureRect = get_node("TextureRect")
 @onready var costume_piece_area: Node2D = get_node("CostumePieceArea")
+@onready var cat_name_label: Label = get_node("CatNameLabel")
 
 var costume_pieces_still_left = []
 var costume_state = CostumeState.INITIAL
@@ -20,6 +22,7 @@ func _ready():
 	costume_pieces_still_left = costume_pieces_required.duplicate(true)
 	_setup_cat_costume_pieces()
 	body_entered.connect(_on_body_entered)
+	cat_name_label.text = cat_name
 
 func add_piece(piece: CostumePiece.CostumeComponent):
 	if piece in costume_pieces_still_left:
