@@ -3,6 +3,8 @@ extends Node2D
 
 signal piece_component_selected(selected_piece_component: CostumePiece.CostumeComponent)
 signal pieces_selected(selected_pieces: Array[CostumePiece])
+signal completed_selected_pieces_animation_finished
+signal random_piece_added
 
 @export var num_rows: int = 3
 @export var num_cols: int = 3
@@ -18,6 +20,7 @@ var grid = []
 var rng = RandomNumberGenerator.new()
 var disabled_aisle = []
 var select_disabled = false
+var grid_pieces_replenished = false
 
 func _ready():
 	rng.randomize()
@@ -61,15 +64,8 @@ func _on_selector_pressed(is_row: bool, row_col_num: int, selector_btn: TextureB
 	select_row_or_col(is_row, row_col_num, selector_btn)
 
 func determine_selector_button(is_row: bool, row_col_num: int) -> TextureButton:
+	# TODO: This is likely wrong and the issue is in the execute_ai function in MatchManager
 	if is_row:
-		match row_col_num:
-			0:
-				return row_selector_zero
-			1:
-				return row_selector_one
-			2:
-				return row_selector_two
-	else:
 		match row_col_num:
 			0:
 				return col_selector_zero
@@ -77,24 +73,36 @@ func determine_selector_button(is_row: bool, row_col_num: int) -> TextureButton:
 				return col_selector_one
 			2:
 				return col_selector_two
+			
+	else:
+		match row_col_num:
+			0:
+				return row_selector_zero
+			1:
+				return row_selector_one
+			2:
+				return row_selector_two
 	
 	return row_selector_zero
 
 func select_row_or_col(is_row: bool, row_col_num: int, selector_btn: TextureButton) -> void:
+	grid_pieces_replenished = false
+	
 	for child in get_children():
 		if child is TextureButton:
 			child.disabled = false
 	var pieces_selected_in_row_col = []
+	var piece_coordinates_to_replace: Array[Vector2] = []
 	if is_row:
 		for row in num_rows:
 			var piece: CostumePiece = grid[row][row_col_num]
 			pieces_selected_in_row_col.append(piece)
-			_add_random_piece(row, row_col_num)
+			piece_coordinates_to_replace.append(Vector2(row, row_col_num))
 	else:
 		for col in num_cols:
 			var piece: CostumePiece = grid[row_col_num][col]
 			pieces_selected_in_row_col.append(piece)
-			_add_random_piece(row_col_num, col)
+			piece_coordinates_to_replace.append(Vector2(row_col_num, col))
 	
 	selector_btn.disabled = true
 	disabled_aisle = [is_row, row_col_num]
@@ -104,17 +112,33 @@ func select_row_or_col(is_row: bool, row_col_num: int, selector_btn: TextureButt
 		print(CostumePiece.CostumeComponent.keys()[costume_piece.costume_component])
 	
 	emit_signal("pieces_selected", pieces_selected_in_row_col)
+	
+	# TODO await selected_pieces_animation_complete
+	await completed_selected_pieces_animation_finished
+	
+	for coordinate in piece_coordinates_to_replace:
+		_add_random_piece(coordinate.x, coordinate.y)
+		await random_piece_added
+
+	grid_pieces_replenished = true
 
 func _add_random_piece(row, col) -> void:
 	var rand_piece: CostumePiece = UtilHelper.create_random_costume_piece()
 	rand_piece.position = Vector2(row, col) * Dimensions.costume_piece_vec2
+	rand_piece.scale = Vector2.ZERO
 	add_child(rand_piece)
 	rand_piece.piece_selected.connect(_on_piece_selected)
-	
-	if grid[row][col] is CostumePiece:
-		remove_child(grid[row][col])
 	grid[row][col] = rand_piece
+	
+	var rand_piece_scale_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
+	rand_piece_scale_tween.tween_property(rand_piece, "scale", Vector2.ONE, 0.3)
+	await rand_piece_scale_tween.finished
+	
+	emit_signal("random_piece_added")
 
 func _on_piece_selected(costume_piece: CostumePiece) -> void:
 	print("CostumePiece %s selected with costume_component: %s" % [costume_piece, CostumePiece.CostumeComponent.keys()[costume_piece.costume_component]])
 	emit_signal("piece_component_selected")
+
+func _on_completed_selected_pieces_animation_finished() -> void:
+	emit_signal("completed_selected_pieces_animation_finished")
