@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://fudjsw5rof3m"]
+[gd_scene load_steps=4 format=3 uid="uid://fudjsw5rof3m"]
 
 [ext_resource type="Script" path="res://managers/MatchManager.gd" id="1_s3c2u"]
 [ext_resource type="PackedScene" uid="uid://bt757vxvg1fgg" path="res://costume_piece_grid/CostumePieceGrid.tscn" id="2_kdm08"]
+[ext_resource type="PackedScene" uid="uid://dccan5dvvoco" path="res://ui/game_end_panel/GameEndPanel.tscn" id="3_py1wa"]
 
 [node name="MatchManager" type="Node2D"]
 script = ExtResource("1_s3c2u")
@@ -29,3 +30,9 @@ offset_right = 808.0
 offset_bottom = 690.0
 theme_override_font_sizes/font_size = 128
 text = "P1"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameEndPanel" parent="CanvasLayer" instance=ExtResource("3_py1wa")]
+visible = false
+position = Vector2(512, 272)
