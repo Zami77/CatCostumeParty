@@ -1,43 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlq8thal63src"]
+[gd_scene load_steps=5 format=3 uid="uid://dlq8thal63src"]
 
 [ext_resource type="Script" path="res://ui/main_menu/MainMenu.gd" id="1_4uqta"]
+[ext_resource type="Texture2D" uid="uid://bu0l7scyeg510" path="res://ui/main_menu/title_art_with_cats.png" id="2_thomr"]
+[ext_resource type="Theme" uid="uid://c6kvf2ibqye14" path="res://ui/themes/DefaultTheme.tres" id="3_yewn7"]
+
+[sub_resource type="Theme" id="Theme_y02fb"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_4uqta")
 
-[node name="GameNameLabel" type="Label" parent="."]
-offset_left = 480.0
-offset_top = 64.0
-offset_right = 1055.0
-offset_bottom = 155.0
-theme_override_font_sizes/font_size = 64
-text = "Cat Costume Party"
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_thomr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 576.0
-offset_top = 288.0
-offset_right = 931.0
-offset_bottom = 636.0
+offset_left = 32.0
+offset_top = 256.0
+offset_right = 411.0
+offset_bottom = 604.0
+theme = ExtResource("3_yewn7")
 theme_override_constants/separation = 16
 alignment = 1
 
 [node name="Play1pButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+theme = SubResource("Theme_y02fb")
 text = "PLAY 1P"
 
 [node name="Play2pButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
 text = "PLAY 2P"
 
 [node name="InstructionsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
 text = " INSTRUCTIONS "
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
 text = "CREDITS
 "
