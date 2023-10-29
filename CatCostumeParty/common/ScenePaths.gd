@@ -3,6 +3,8 @@ extends Node
 
 static var main_menu = "res://ui/main_menu/MainMenu.tscn"
 static var match_manager = "res://managers/MatchManager.tscn"
+static var credits_screen = "res://ui/credits_screen/CreditsScreen.tscn"
+static var instructions_screen = "res://ui/instructions_screen/InstructionsScreen.tscn"
 
 static var costume_piece = "res://costume_pieces/CostumePiece.tscn"
 static var costume_cat = "res://costume_cats/CostumeCat.tscn"
