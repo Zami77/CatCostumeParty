@@ -29,8 +29,9 @@ theme_override_font_sizes/normal_font_size = 48
 text = "Game by Iris Aclan & Dan Lungaro
 
 Programming: Dan Lungaro
-
 Art: Iris Aclan
+Sound Effects: Game Dev Marketplace
+Music: CyberWave Orchestra
 
 Made with Godot Game Engine"
 fit_content = true

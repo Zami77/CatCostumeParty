@@ -1,6 +1,6 @@
 extends Node
 
-enum BgmPlaying { MAIN_MENU, MATCH }
+enum BgmPlaying { MAIN_MENU, MATCH, NONE }
 
 var num_players = 16
 var bus_master = "Master"
@@ -8,7 +8,7 @@ var bus_sound_effects = "SoundEffects"
 var bus_music = "Music"
 
 var bgm_player = AudioStreamPlayer.new()
-var bgm_playing = BgmPlaying.MAIN_MENU
+var bgm_playing = BgmPlaying.NONE
 var available_players = []  
 var sfx_queue = []  
 
@@ -32,6 +32,14 @@ var game_end = "res://common/sound_fx/game_end.mp3"
 var button_press = "res://ui/button_sfx/FA_Confirm_Button_1_1.wav"
 var button_hover = "res://ui/button_sfx/button_hover.wav"
 
+var main_menu_songs = [
+	"res://common/music/menu_theme.wav"
+]
+
+var match_songs = [
+	"res://common/music/match_music.wav"
+]
+
 func _ready():
 	for i in num_players:
 		var p = AudioStreamPlayer.new()
@@ -53,16 +61,34 @@ func _on_stream_finished(stream) -> void:
 func _on_bgm_player_finished():
 	match bgm_playing:
 		BgmPlaying.MAIN_MENU:
-			pass
+			bgm_playing = BgmPlaying.NONE
+			play_menu_theme()
 		BgmPlaying.MATCH:
-			play_battle_theme()
+			bgm_playing = BgmPlaying.NONE
+			play_match_theme()
 
-func play_battle_theme() -> void:
-	pass
+func play_bgm(sound_path):
+	_fadeout_bgm()
+	bgm_player.stream = load(sound_path)
+	bgm_player.play()
 
 func play_sfx(sound_path):
 	sfx_queue.append(sound_path)
 
+func play_match_theme() -> void:
+	if bgm_playing == BgmPlaying.MATCH:
+		return
+	
+	bgm_playing = BgmPlaying.MATCH
+	play_bgm(match_songs[0])
+	
+func play_menu_theme() -> void:
+	if bgm_playing == BgmPlaying.MAIN_MENU:
+		return
+	
+	bgm_playing = BgmPlaying.MAIN_MENU
+	play_bgm(main_menu_songs[0])
+	
 func _fadeout_bgm():
 	bgm_player.stop()
 
