@@ -11,6 +11,7 @@ signal option_selected(option: Option)
 enum Option { PLAY_1P, PLAY_2P, INSTRUCTIONS, CREDITS }
 
 func _ready():
+	AudioManager.play_menu_theme()
 	play_1p_button.pressed.connect(_on_button_pressed.bind(Option.PLAY_1P))
 	play_2p_button.pressed.connect(_on_button_pressed.bind(Option.PLAY_2P))
 	instructions_button.pressed.connect(_on_button_pressed.bind(Option.INSTRUCTIONS))

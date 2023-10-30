@@ -11,7 +11,14 @@ signal load_scene(scene_path)
 @export var timer_wait_on_start_of_ai_turn = 1.0
 @export var piece_movement_tween_duration = 0.35
 @export var dressed_cat_tween_duration = 0.35
-@export var is_ai = false
+@export var is_ai = false : 
+	set(new_value): 
+		is_ai = new_value
+		
+		if is_ai:
+			p2_label.text = "AI"
+		else:
+			p2_label.text = "P2"
 
 @onready var costume_piece_grid: CostumePieceGrid = get_node("CostumePieceGrid")
 @onready var costume_cat_area_p1: Node2D = get_node("CostumeCatAreaP1")
@@ -20,6 +27,7 @@ signal load_scene(scene_path)
 @onready var dressed_cat_area_p2: Node2D = get_node("DressedCatAreaP2")
 @onready var game_end_panel: GameEndPanel = get_node("CanvasLayer/GameEndPanel")
 @onready var turn_label: Label = get_node("TurnLabel")
+@onready var p2_label: Label = get_node("P2Label")
 
 enum TurnState { P1, P2, GAME_END, NONE }
 var turn_state = TurnState.P1
@@ -29,6 +37,7 @@ var p1_dressed_cats = 0
 var p2_dressed_cats = 0
 
 func _ready():
+	AudioManager.play_match_theme()
 	costume_piece_grid.select_disabled = true
 	costume_piece_grid.pieces_selected.connect(_on_pieces_selected)
 	game_end_panel.game_end_panel_option_selected.connect(_on_game_end_panel_option_selected)
@@ -57,6 +66,7 @@ func _update_turn() -> void:
 	turn_label.text = TurnState.keys()[turn_state] + " TURN"
 	
 	if is_ai and turn_state == TurnState.P2:
+		turn_label.text = "AI TURN"
 		costume_piece_grid.select_disabled = true
 		_execute_ai_turn()
 	else:
@@ -78,7 +88,7 @@ func _check_for_game_win() -> void:
 
 func _execute_game_win() -> void:
 	AudioManager.play_game_end()
-	game_end_panel.set_winning_player(winning_player)
+	game_end_panel.set_winning_player(winning_player, is_ai)
 	game_end_panel.visible = true
 	costume_piece_grid.select_disabled = true
 

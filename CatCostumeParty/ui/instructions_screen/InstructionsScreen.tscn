@@ -26,11 +26,11 @@ offset_right = 1152.0
 offset_bottom = 640.0
 theme = ExtResource("2_thrf1")
 theme_override_font_sizes/normal_font_size = 48
-text = "It's Halloween and you need to help your cat friends get dressed into costumes! First player to 5 cats in costume wins.
+text = "It's Halloween and you need to help your cat friends get dressed into costumes! First player to dress up 5 cats wins.
 
-Each player starts with a cat that has the required costume pieces below it. Select a row or column to get the pieces.
+Each player starts with a cat that has the required costume pieces below it. Click a paw to select a row or column to get the costume pieces.
 
-Keep in mind, the row or column that's been selected can not be selected the next player's turn!
+Keep in mind, the cat paw that's been selected can not be selected during the next player's turn!
 
 "
 fit_content = true
