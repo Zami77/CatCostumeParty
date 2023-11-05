@@ -96,12 +96,24 @@ func _execute_ai_turn() -> void:
 	# add delay before doing turn
 	await get_tree().create_timer(timer_wait_on_start_of_ai_turn).timeout
 	
+	var best_match_key = _solve_best_ai_option() # [is_row, row_col_num]
+	
+	costume_piece_grid.select_row_or_col(\
+		best_match_key[0], \
+		best_match_key[1], \
+		costume_piece_grid.determine_selector_button(\
+			best_match_key[0], \
+			best_match_key[1]\
+		)\
+	)
+
+func _solve_best_ai_option() -> Array: # [is_row, row_col_num]
 	var selectable_options: Dictionary = costume_piece_grid.get_selectable_options()
 	var ai_costume_cat: CostumeCat = costume_cat_area_p2.get_child(0)
 	var best_match_count = 0
-	var best_match_index = [true, 0]
+	var best_match_key = [true, 0]
 	for option in selectable_options:
-		if not option[0] == costume_piece_grid.disabled_aisle[0] and option[1] == costume_piece_grid.disabled_aisle[1]:
+		if option[0] == costume_piece_grid.disabled_aisle[0] and option[1] == costume_piece_grid.disabled_aisle[1]:
 			continue
 		var current_match_count = 0
 		var dupe_costume_pieces_left = ai_costume_cat.costume_pieces_still_left.duplicate(true)
@@ -111,18 +123,8 @@ func _execute_ai_turn() -> void:
 			dupe_costume_pieces_left.erase(piece)
 		if current_match_count >= best_match_count:
 			best_match_count = current_match_count
-			best_match_index = option
-	
-	# TODO: Somewhere here the logic is wrong, but it gets the correct result
-	costume_piece_grid.select_row_or_col(\
-		not best_match_index[0], \
-		best_match_index[1], \
-		costume_piece_grid.determine_selector_button(\
-			best_match_index[0], \
-			best_match_index[1]\
-		)\
-	)
-	
+			best_match_key = option
+	return best_match_key
 
 func _get_costume_cat_and_dressed_area(player: TurnState) -> Dictionary:
 	var costume_cat_area
