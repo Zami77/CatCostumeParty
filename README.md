@@ -1,4 +1,4 @@
- ![image](https://github.com/Zami77/CatCostumeParty/assets/15083731/0d032d13-2016-4e7f-95a5-ce0b4e7a3df7)
+ ![image](https://github.com/Zami77/CatCostumeParty/blob/main/CatCostumeParty/ui/main_menu/title_art_with_cats.png)
 # Cat Costume Party
 
 [Play Cat Costume Party on itch.io!](https://yatchstudios.itch.io/cat-costume-party)
