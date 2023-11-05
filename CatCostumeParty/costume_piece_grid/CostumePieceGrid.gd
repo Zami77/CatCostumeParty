@@ -39,17 +39,18 @@ func _setup_grid():
 	emit_signal("grid_setup")
 			
 func get_selectable_options() -> Dictionary:
+	# key: [is_row, row_col_num]
 	var selectable_options = {}
 	
 	for row in num_rows:
 		for col in num_cols:
 			if not [true, row] in selectable_options:
 				selectable_options[[true, row]] = []
-			selectable_options[[true, row]].append(grid[row][col].costume_component)
+			selectable_options[[true, row]].append(grid[col][row].costume_component)
 		
 			if not [false, col] in selectable_options:
 				selectable_options[[false, col]] = []
-			selectable_options[[false, col]].append(grid[row][col].costume_component)
+			selectable_options[[false, col]].append(grid[col][row].costume_component)
 			
 	return selectable_options
 
@@ -67,17 +68,7 @@ func _on_selector_pressed(is_row: bool, row_col_num: int, selector_btn: TextureB
 	select_row_or_col(is_row, row_col_num, selector_btn)
 
 func determine_selector_button(is_row: bool, row_col_num: int) -> TextureButton:
-	# TODO: This is likely wrong and the issue is in the execute_ai function in MatchManager
 	if is_row:
-		match row_col_num:
-			0:
-				return col_selector_zero
-			1:
-				return col_selector_one
-			2:
-				return col_selector_two
-			
-	else:
 		match row_col_num:
 			0:
 				return row_selector_zero
@@ -85,6 +76,15 @@ func determine_selector_button(is_row: bool, row_col_num: int) -> TextureButton:
 				return row_selector_one
 			2:
 				return row_selector_two
+	else:
+		match row_col_num:
+			
+			0:
+				return col_selector_zero
+			1:
+				return col_selector_one
+			2:
+				return col_selector_two
 	
 	return row_selector_zero
 
@@ -97,15 +97,15 @@ func select_row_or_col(is_row: bool, row_col_num: int, selector_btn: TextureButt
 	var pieces_selected_in_row_col = []
 	var piece_coordinates_to_replace: Array[Vector2] = []
 	if is_row:
-		for row in num_rows:
-			var piece: CostumePiece = grid[row][row_col_num]
-			pieces_selected_in_row_col.append(piece)
-			piece_coordinates_to_replace.append(Vector2(row, row_col_num))
-	else:
 		for col in num_cols:
-			var piece: CostumePiece = grid[row_col_num][col]
+			var piece: CostumePiece = grid[col][row_col_num]
 			pieces_selected_in_row_col.append(piece)
-			piece_coordinates_to_replace.append(Vector2(row_col_num, col))
+			piece_coordinates_to_replace.append(Vector2(col, row_col_num))
+	else:
+		for row in num_rows:
+			var piece: CostumePiece = grid[row_col_num][row]
+			pieces_selected_in_row_col.append(piece)
+			piece_coordinates_to_replace.append(Vector2(row_col_num, row))
 	
 	selector_btn.disabled = true
 	disabled_aisle = [is_row, row_col_num]
@@ -116,7 +116,6 @@ func select_row_or_col(is_row: bool, row_col_num: int, selector_btn: TextureButt
 	
 	emit_signal("pieces_selected", pieces_selected_in_row_col)
 	
-	# TODO await selected_pieces_animation_complete
 	await completed_selected_pieces_animation_finished
 	
 	for coordinate in piece_coordinates_to_replace:
